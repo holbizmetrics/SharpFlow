@@ -63,7 +63,7 @@
 									CornerRadius="5"
 									BorderBrush="{Binding IsSelected, Converter={StaticResource SelectionColorConverter}}"
 									BorderThickness="2"
-									Margin="{Binding X, StringFormat='{}{0},10,0,0'}"
+									Margin="10"
 									PointerPressed="Node_PointerPressed"
 									PointerMoved="Node_PointerMoved"
 									PointerReleased="Node_PointerReleased"
