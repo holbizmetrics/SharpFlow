@@ -55,43 +55,32 @@
 		<!-- Main Canvas Area -->
 		<Border Background="#1E1E1E">
 			<ScrollViewer>
-				<Canvas Background="#1E1E1E" Width="2000" Height="1500">
-
-					<!-- Render workflow nodes -->
-					<ItemsControl ItemsSource="{Binding Nodes}">
-						<ItemsControl.ItemsPanel>
-							<ItemsPanelTemplate>
-								<Canvas />
-							</ItemsPanelTemplate>
-						</ItemsControl.ItemsPanel>
-						<ItemsControl.Styles>
-							<Style Selector="ContentPresenter">
-								<!--<Setter Property="Canvas.Left" Value="{Binding X}" />
-								<Setter Property="Canvas.Top" Value="{Binding Y}" />-->
-							</Style>
-						</ItemsControl.Styles>
-						<ItemsControl.ItemTemplate>
-							<DataTemplate x:DataType="models:WorkflowNode">
-								<Border Background="{Binding Type, Converter={StaticResource NodeColorConverter}}"
-                                        CornerRadius="8" Padding="15"
-                                        BorderBrush="{Binding IsSelected, Converter={StaticResource SelectionColorConverter}}"
-                                        BorderThickness="3"
-                                        MinWidth="180" MinHeight="100"
-                                        PointerPressed="Node_PointerPressed">
-
-									<StackPanel Spacing="8">
-										<TextBlock Text="{Binding Name}"
-                                                  FontWeight="Bold"
-                                                  Foreground="White" />
-
-										<TextBlock Text="{Binding Type}"
-                                                  Foreground="LightGray" />
-									</StackPanel>
-								</Border>
-							</DataTemplate>
-						</ItemsControl.ItemTemplate>
-					</ItemsControl>
-				</Canvas>
+				<ItemsControl ItemsSource="{Binding Nodes}">
+					<ItemsControl.ItemTemplate>
+						<DataTemplate DataType="models:WorkflowNode">
+							<Border Background="{Binding Type, Converter={StaticResource NodeColorConverter}}"
+									Width="150" Height="80"
+									CornerRadius="5"
+									BorderBrush="{Binding IsSelected, Converter={StaticResource SelectionColorConverter}}"
+									BorderThickness="2"
+									Margin="{Binding X, StringFormat='{}{0},10,0,0'}"
+									PointerPressed="Node_PointerPressed"
+									PointerMoved="Node_PointerMoved"
+									PointerReleased="Node_PointerReleased"
+									Cursor="Hand">
+								<StackPanel>
+									<TextBlock Text="{Binding Name}"
+											  Foreground="White"
+											  FontWeight="Bold"
+											  HorizontalAlignment="Center" />
+									<TextBlock Text="{Binding Type}"
+											  Foreground="LightGray"
+											  HorizontalAlignment="Center" />
+								</StackPanel>
+							</Border>
+						</DataTemplate>
+					</ItemsControl.ItemTemplate>
+				</ItemsControl>
 			</ScrollViewer>
 		</Border>
 	</DockPanel>

@@ -1,18 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace SharpFlow.Desktop.Models;
 
-public class WorkflowNode
+public partial class WorkflowNode : ObservableObject
 {
     public string Id { get; set; } = Guid.NewGuid().ToString();
     public string Type { get; set; } = "";
     public string Name { get; set; } = "";
-    public double X { get; set; }
-    public double Y { get; set; }
+
+    [ObservableProperty]
+    private double _x;
+
+    [ObservableProperty]
+    private double _y;
+
     public Dictionary<string, object> Properties { get; set; } = new();
-    public bool IsSelected { get; set; }
+
+    [ObservableProperty]
+    private bool _isSelected;
 }

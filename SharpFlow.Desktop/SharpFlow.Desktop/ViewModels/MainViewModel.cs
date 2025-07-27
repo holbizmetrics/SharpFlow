@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -16,6 +17,8 @@ public partial class MainWindowViewModel : ObservableObject
     [RelayCommand]
     private void AddHttpNode()
     {
+        Console.WriteLine("🌐 BUTTON WAS CLICKED!"); // ← Just this for now
+
         var node = new WorkflowNode
         {
             Type = "HttpRequest",
@@ -30,6 +33,11 @@ public partial class MainWindowViewModel : ObservableObject
         };
 
         Nodes.Add(node);
+        Console.WriteLine($"Added node! Total count: {Nodes.Count}");
+
+
+        // FORCE UI UPDATE
+        OnPropertyChanged(nameof(Nodes));
     }
 
     [RelayCommand]
