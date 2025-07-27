@@ -13,18 +13,18 @@
 ## Phase 1: Avalonia Foundation (Months 1-2) 🏗️
 
 ### **Milestone 1.1: Core Desktop Shell** (Weeks 1-2)
-- [ ] Avalonia UI project structure with .NET 9
-- [ ] Basic application shell with modern theming
-- [ ] Main window layout: toolbar, canvas, property panel
+- [x] Avalonia UI project structure with .NET 9
+- [x] Basic application shell with modern theming
+- [x] Main window layout: toolbar, canvas, property panel
 - [ ] Project creation/save/load with SQLite persistence
 - [ ] Native AOT compilation pipeline working
-- [ ] Single executable deployment (Windows/Linux/macOS)
+- [x] Single executable deployment (Windows/Linux/macOS)
 
 ### **Milestone 1.2: Visual Workflow Designer** (Weeks 3-4)  
 - [ ] Interactive canvas with zoom/pan support
 - [ ] Drag-and-drop node creation from palette
 - [ ] Visual connection system with bezier curves
-- [ ] Node selection, movement, and deletion
+- [x] Node selection, movement, and deletion -> deletion is still missing AND only single nodes can be selected for now.
 - [ ] Property panel for node configuration
 - [ ] Basic undo/redo functionality
 
