@@ -29,6 +29,8 @@ namespace SharpFlow.Desktop.Views
         // ────────────────────────────────────────────────────────────────
         private Border? _draggedBorder; // Add this field
 
+        private Point _initialClickOffset; // Add this field
+
         private void Node_PointerPressed(object? sender, PointerPressedEventArgs e)
         {
             if (sender is Border border && border.DataContext is WorkflowNode node)
@@ -38,11 +40,17 @@ namespace SharpFlow.Desktop.Views
                 _draggedNode = node;
                 _draggedBorder = border;
 
-                // Start with NO transform - let the node stay at its current visual position
-                _draggedBorder.RenderTransform = new TranslateTransform(0, 0);
+                // Get mouse position relative to parent
+                var mousePos = e.GetPosition((Visual)border.Parent);
 
-                // Get the pointer position relative to the parent
-                _lastPointerPosition = e.GetPosition((Visual)border.Parent);
+                // Get current node position (from existing RenderTransform or 0,0)
+                var currentTransform = border.RenderTransform as TranslateTransform ?? new TranslateTransform(0, 0);
+                var nodePos = new Point(currentTransform.X, currentTransform.Y);
+
+                // Calculate the offset between mouse and node center
+                _initialClickOffset = new Point(mousePos.X - nodePos.X, mousePos.Y - nodePos.Y);
+
+                _lastPointerPosition = mousePos;
 
                 e.Pointer.Capture(border);
                 border.Cursor = new Cursor(StandardCursorType.SizeAll);
@@ -54,22 +62,17 @@ namespace SharpFlow.Desktop.Views
         {
             if (_isDragging && _draggedNode is not null && _draggedBorder is not null)
             {
-                var current = e.GetPosition(_draggedBorder.Parent as Visual);
-                var dx = current.X - _lastPointerPosition.X;
-                var dy = current.Y - _lastPointerPosition.Y;
+                var mousePos = e.GetPosition(_draggedBorder.Parent as Visual);
 
-                // Get current transform and add the delta
-                var currentTransform = _draggedBorder.RenderTransform as TranslateTransform ?? new TranslateTransform(0, 0);
-                var newX = currentTransform.X + dx;
-                var newY = currentTransform.Y + dy;
+                // Calculate new node position = mouse position - initial offset
+                var newX = mousePos.X - _initialClickOffset.X;
+                var newY = mousePos.Y - _initialClickOffset.Y;
 
                 _draggedBorder.RenderTransform = new TranslateTransform(newX, newY);
 
-                // Update the node coordinates too
                 _draggedNode.X = newX;
                 _draggedNode.Y = newY;
 
-                _lastPointerPosition = current;
                 e.Handled = true;
             }
         }
