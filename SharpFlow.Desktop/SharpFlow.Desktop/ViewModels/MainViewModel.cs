@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using SharpFlow.Desktop.Models;
@@ -17,7 +18,7 @@ public partial class MainWindowViewModel : ObservableObject
     [RelayCommand]
     private void AddHttpNode()
     {
-        Console.WriteLine("🌐 BUTTON WAS CLICKED!"); // ← Just this for now
+        Debug.WriteLine("🌐 BUTTON WAS CLICKED!"); // ← Just this for now
 
         var node = new WorkflowNode
         {
@@ -33,7 +34,7 @@ public partial class MainWindowViewModel : ObservableObject
         };
 
         Nodes.Add(node);
-        Console.WriteLine($"Added node! Total count: {Nodes.Count}");
+        Debug.WriteLine($"Added node! Total count: {Nodes.Count}");
 
 
         // FORCE UI UPDATE
