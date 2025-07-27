@@ -1,0 +1,98 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:SharpFlow.Desktop.ViewModels"
+        xmlns:models="using:SharpFlow.Desktop.Models"
+        x:Class="SharpFlow.Desktop.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Title="SharpFlow - Workflow Designer"
+        WindowStartupLocation="CenterScreen"
+        Width="1200" Height="800">
+
+	<DockPanel>
+		<!-- Toolbar -->
+		<Border DockPanel.Dock="Top" Background="#2D2D30" Padding="10">
+			<StackPanel Orientation="Horizontal" Spacing="10">
+				<Button Command="{Binding AddHttpNodeCommand}"
+                        Background="#28a745" Foreground="White"
+                        Content="🌐 Add HTTP Request" />
+				<Button Command="{Binding AddTimerNodeCommand}"
+                        Background="#ffc107" Foreground="Black"
+                        Content="⏰ Add Timer" />
+				<Button Command="{Binding ClearNodesCommand}"
+                        Background="#dc3545" Foreground="White"
+                        Content="🗑️ Clear All" />
+				<TextBlock Text="SharpFlow MVP - GO SHARP WITH THE FLOW! 🚀"
+                           Foreground="White"
+                           VerticalAlignment="Center"
+                           Margin="20,0"
+                           FontWeight="Bold" />
+			</StackPanel>
+		</Border>
+
+		<!-- Property Panel -->
+		<Border DockPanel.Dock="Right" Background="#252526" Width="300" Padding="10">
+			<StackPanel Spacing="10">
+				<TextBlock Text="Properties" FontWeight="Bold" Foreground="White" FontSize="16" />
+
+				<Border Background="#3C3C3C" Padding="10" CornerRadius="5"
+                        IsVisible="{Binding SelectedNode, Converter={x:Static ObjectConverters.IsNotNull}}">
+					<StackPanel Spacing="8" x:DataType="models:WorkflowNode">
+						<TextBlock Text="{Binding Name}"
+                                   FontWeight="Bold" Foreground="White" />
+						<TextBlock Text="{Binding Type}"
+                                   Foreground="LightGray" />
+						<TextBlock Text="{Binding Id}"
+                                   Foreground="LightBlue" FontSize="10" />
+					</StackPanel>
+				</Border>
+
+				<TextBlock Text="👆 Click on a workflow node to see its properties"
+                          Foreground="Gray"
+                          IsVisible="{Binding SelectedNode, Converter={x:Static ObjectConverters.IsNull}}" />
+			</StackPanel>
+		</Border>
+
+		<!-- Main Canvas Area -->
+		<Border Background="#1E1E1E">
+			<ScrollViewer>
+				<Canvas Background="#1E1E1E" Width="2000" Height="1500">
+
+					<!-- Render workflow nodes -->
+					<ItemsControl ItemsSource="{Binding Nodes}">
+						<ItemsControl.ItemsPanel>
+							<ItemsPanelTemplate>
+								<Canvas />
+							</ItemsPanelTemplate>
+						</ItemsControl.ItemsPanel>
+						<ItemsControl.Styles>
+							<Style Selector="ContentPresenter">
+								<!--<Setter Property="Canvas.Left" Value="{Binding X}" />
+								<Setter Property="Canvas.Top" Value="{Binding Y}" />-->
+							</Style>
+						</ItemsControl.Styles>
+						<ItemsControl.ItemTemplate>
+							<DataTemplate x:DataType="models:WorkflowNode">
+								<Border Background="{Binding Type, Converter={StaticResource NodeColorConverter}}"
+                                        CornerRadius="8" Padding="15"
+                                        BorderBrush="{Binding IsSelected, Converter={StaticResource SelectionColorConverter}}"
+                                        BorderThickness="3"
+                                        MinWidth="180" MinHeight="100"
+                                        PointerPressed="Node_PointerPressed">
+
+									<StackPanel Spacing="8">
+										<TextBlock Text="{Binding Name}"
+                                                  FontWeight="Bold"
+                                                  Foreground="White" />
+
+										<TextBlock Text="{Binding Type}"
+                                                  Foreground="LightGray" />
+									</StackPanel>
+								</Border>
+							</DataTemplate>
+						</ItemsControl.ItemTemplate>
+					</ItemsControl>
+				</Canvas>
+			</ScrollViewer>
+		</Border>
+	</DockPanel>
+</Window>
