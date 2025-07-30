@@ -2,10 +2,12 @@
 // WorkflowNode.cs - Simple converters
 // ====================================================
 
+using Avalonia.Controls;
+using Avalonia.LogicalTree;
+using CommunityToolkit.Mvvm.ComponentModel;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Reflection;
-using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace SharpFlow.Desktop.Models;
 
@@ -27,4 +29,9 @@ public partial class WorkflowNode : WorkflowObject
 	    Properties.Add("Name", Name);
         Properties.Add("Type", Type);
 	}
+
+	public INameScope? FindNameScope()
+    {
+        return null;
+    }
 }

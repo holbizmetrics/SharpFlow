@@ -1,0 +1,197 @@
+<UserControl x:Class="SharpFlow.Desktop.Controls.WorkflowNodeControl"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:SharpFlow.Desktop.ViewModels"
+             x:DataType="vm:WorkflowNodeViewModel">
+
+	<UserControl.Styles>
+
+		<!-- Normal State -->
+		<Style Selector="Border.node-container">
+			<Setter Property="Background" Value="#2D2D30" />
+			<Setter Property="BorderBrush" Value="#3F3F46" />
+			<Setter Property="BorderThickness" Value="2" />
+			<Setter Property="CornerRadius" Value="8" />
+			<Setter Property="MinWidth" Value="120" />
+			<Setter Property="MinHeight" Value="80" />
+		</Style>
+
+		<!-- Executing State - Glowing Blue -->
+		<Style Selector="Border.node-container.executing">
+			<Setter Property="BorderBrush" Value="#0078D4" />
+			<!--<Setter Property="BoxShadow" Value="0 0 20px #0078D4" />-->
+			<Style.Animations>
+				<Animation Duration="0:0:1" IterationCount="Infinite" PlaybackDirection="Alternate">
+					<KeyFrame Cue="0%">
+						<Setter Property="BorderBrush" Value="#0078D4" />
+					</KeyFrame>
+					<KeyFrame Cue="100%">
+						<Setter Property="BorderBrush" Value="#1E90FF" />
+					</KeyFrame>
+				</Animation>
+			</Style.Animations>
+		</Style>
+
+		<!-- Completed State - Green Glow -->
+		<Style Selector="Border.node-container.completed">
+			<Setter Property="BorderBrush" Value="#16A085" />
+			<Setter Property="BoxShadow" Value="0 0 15px #16A085" />
+		</Style>
+
+		<!-- Failed State - Red Glow -->
+		<Style Selector="Border.node-container.failed">
+			<Setter Property="BorderBrush" Value="#E74C3C" />
+			<Setter Property="BoxShadow" Value="0 0 15px #E74C3C" />
+		</Style>
+
+		<!-- Paused at Breakpoint - Pulsing Red -->
+		<Style Selector="Border.node-container.paused">
+			<Setter Property="BorderBrush" Value="#FF6B6B" />
+			<Setter Property="BoxShadow" Value="0 0 25px #FF6B6B" />
+			<Style.Animations>
+				<Animation Duration="0:0:0.8" IterationCount="Infinite" PlaybackDirection="Alternate">
+					<KeyFrame Cue="0%">
+						<Setter Property="BoxShadow" Value="0 0 25px #FF6B6B" />
+					</KeyFrame>
+					<KeyFrame Cue="100%">
+						<Setter Property="BoxShadow" Value="0 0 5px #FF6B6B" />
+					</KeyFrame>
+				</Animation>
+			</Style.Animations>
+		</Style>
+
+		<!-- Breakpoint Indicator -->
+		<Style Selector="Ellipse.breakpoint">
+			<Setter Property="Fill" Value="#E74C3C" />
+			<Setter Property="Width" Value="12" />
+			<Setter Property="Height" Value="12" />
+			<Setter Property="HorizontalAlignment" Value="Right" />
+			<Setter Property="VerticalAlignment" Value="Top" />
+			<Setter Property="Margin" Value="0,-6,-6,0" />
+		</Style>
+
+	</UserControl.Styles>
+
+	<Grid>
+
+		<!-- Main Node Container -->
+		<Border Classes="node-container"
+                Classes.executing="{Binding IsExecuting}"
+                Classes.completed="{Binding IsCompleted}"
+                Classes.failed="{Binding HasFailed}"
+                Classes.paused="{Binding IsPaused}">
+
+			<Grid Margin="12">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="*" />
+					<RowDefinition Height="Auto" />
+				</Grid.RowDefinitions>
+
+				<!-- Header with Node Type Icon -->
+				<StackPanel Grid.Row="0" Orientation="Horizontal" Spacing="8" Margin="0,0,0,8">
+
+					<!-- Node Type Icon (simplified) -->
+					<TextBlock FontSize="16" VerticalAlignment="Center">
+						<TextBlock.Text>
+							<Binding Path="NodeType">
+								<Binding.Converter>
+									<!--<FuncValueConverter x:TypeArguments="x:String, x:String">
+										<x:String x:Key="Timer">⏰</x:String>
+										<x:String x:Key="HttpRequest">🌐</x:String>
+										<x:String x:Key="CSharpScript">📝</x:String>
+										<x:String x:Key="{x:Null}">❓</x:String>
+									</FuncValueConverter>-->
+								</Binding.Converter>
+							</Binding>
+						</TextBlock.Text>
+					</TextBlock>
+
+					<!-- Node Name -->
+					<TextBlock Text="{Binding DisplayName}"
+                               Foreground="White"
+                               FontWeight="SemiBold"
+                               FontSize="12"
+                               VerticalAlignment="Center" />
+
+				</StackPanel>
+
+				<!-- Execution Status & Data Preview -->
+				<StackPanel Grid.Row="1" Spacing="4">
+
+					<!-- Current Status (simplified) -->
+					<TextBlock FontSize="10" Foreground="#CCCCCC">
+						<TextBlock.Text>
+							<Binding Path="IsExecuting">
+								<Binding.Converter>
+									<!--<FuncValueConverter x:TypeArguments="x:Boolean, x:String">
+										<x:String x:Key="True">🔄 Executing...</x:String>
+										<x:String x:Key="False">⏸ Ready</x:String>
+									</FuncValueConverter>-->
+								</Binding.Converter>
+							</Binding>
+						</TextBlock.Text>
+					</TextBlock>
+
+					<!-- Execution Time -->
+					<TextBlock Text="{Binding ExecutionTime, StringFormat='⏱ {0:F1}ms'}"
+                               FontSize="9"
+                               Foreground="#98FB98" />
+
+					<!-- Data Preview --><!--
+					<TextBlock Text="{Binding DataPreview}"
+                               FontSize="9"
+                               Foreground="#61DAFB"
+                               TextWrapping="Wrap"
+                               MaxLines="2" />-->
+
+				</StackPanel>
+
+				<!-- Port Indicators (simplified for now) -->
+				<StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Spacing="4">
+					<Ellipse Width="6" Height="6" Fill="#666" />
+					<Ellipse Width="6" Height="6" Fill="#666" />
+				</StackPanel>
+
+			</Grid>
+
+		</Border>
+
+		<!-- Breakpoint Indicator -->
+		<Ellipse Classes="breakpoint"
+                 IsVisible="{Binding HasBreakpoint}" />
+
+		<!-- Execution Progress Ring -->
+		<Border Width="20" Height="20"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                IsVisible="{Binding IsExecuting}">
+			<!-- Simple spinning indicator -->
+			<TextBlock Text="⟳" FontSize="16" Foreground="#0078D4" HorizontalAlignment="Center">
+				<TextBlock.RenderTransform>
+					<RotateTransform />
+				</TextBlock.RenderTransform>
+				<TextBlock.Styles>
+					<Style Selector="TextBlock">
+						<Style.Animations>
+							<Animation Duration="0:0:1" IterationCount="Infinite">
+								<KeyFrame Cue="0%">
+									<Setter Property="RenderTransform">
+										<RotateTransform Angle="0" />
+									</Setter>
+								</KeyFrame>
+								<KeyFrame Cue="100%">
+									<Setter Property="RenderTransform">
+										<RotateTransform Angle="360" />
+									</Setter>
+								</KeyFrame>
+							</Animation>
+						</Style.Animations>
+					</Style>
+				</TextBlock.Styles>
+			</TextBlock>
+		</Border>
+
+	</Grid>
+
+</UserControl>

@@ -2,9 +2,9 @@ using Avalonia.Controls;
 
 namespace SharpFlow.Desktop.Controls;
 
-public partial class UserControl1 : UserControl
+public partial class DebugToolbar : UserControl
 {
-    public UserControl1()
+    public DebugToolbar()
     {
         InitializeComponent();
     }

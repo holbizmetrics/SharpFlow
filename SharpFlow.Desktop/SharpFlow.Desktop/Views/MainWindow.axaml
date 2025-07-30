@@ -2,7 +2,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:vm="using:SharpFlow.Desktop.ViewModels"
         xmlns:models="using:SharpFlow.Desktop.Models"
-        x:Class="SharpFlow.Desktop.Views.MainWindow"
+		xmlns:controls="using:SharpFlow.Desktop.Controls"
+		x:Class="SharpFlow.Desktop.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
         Title="SharpFlow - Workflow Designer"
         WindowStartupLocation="CenterScreen"
@@ -27,6 +28,11 @@
                            Margin="20,0"
                            FontWeight="Bold" />
 			</StackPanel>
+		</Border>
+
+		<!-- Debug Toolbar -->
+		<Border DockPanel.Dock="Bottom" Background="Black" Width="150" Padding="10" ClipToBounds="False">
+			<controls:DebugToolbar />
 		</Border>
 
 		<!-- Left Sidebar, just trying things to learn in this section here. :-D -->

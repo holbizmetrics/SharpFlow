@@ -1,0 +1,100 @@
+<UserControl x:Class="SharpFlow.Desktop.Controls.DebugToolbar"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:SharpFlow.Desktop.ViewModels"
+             x:DataType="vm:WorkflowCanvasViewModel">
+
+	<Border Background="#2D2D30" BorderBrush="#3F3F46" BorderThickness="0,0,0,1" Padding="10,5">
+		<StackPanel Orientation="Horizontal" Spacing="10">
+
+			<!-- Play/Start Debug Button -->
+			<Button Command="{Binding StartDebuggingCommand}"
+                    IsVisible="{Binding !IsDebugging}"
+                    Background="#0E639C"
+                    Foreground="White"
+                    Padding="15,8"
+                    CornerRadius="3">
+				<StackPanel Orientation="Horizontal" Spacing="5">
+					<TextBlock Text="▶" FontSize="14" />
+					<TextBlock Text="Start Debug" FontWeight="SemiBold" />
+				</StackPanel>
+			</Button>
+
+			<!-- Continue Button -->
+			<Button Command="{Binding ContinueCommand}"
+                    IsVisible="{Binding IsPaused}"
+                    Background="#16A085"
+                    Foreground="White"
+                    Padding="12,8"
+                    CornerRadius="3">
+				<StackPanel Orientation="Horizontal" Spacing="5">
+					<TextBlock Text="▶" FontSize="12" />
+					<TextBlock Text="Continue" />
+				</StackPanel>
+			</Button>
+
+			<!-- Step Button -->
+			<Button Command="{Binding StepCommand}"
+                    IsVisible="{Binding IsPaused}"
+                    Background="#E67E22"
+                    Foreground="White"
+                    Padding="12,8"
+                    CornerRadius="3">
+				<StackPanel Orientation="Horizontal" Spacing="5">
+					<TextBlock Text="⏭" FontSize="12" />
+					<TextBlock Text="Step" />
+				</StackPanel>
+			</Button>
+
+			<!-- Stop Button -->
+			<Button Command="{Binding StopDebuggingCommand}"
+                    IsVisible="{Binding IsDebugging}"
+                    Background="#E74C3C"
+                    Foreground="White"
+                    Padding="12,8"
+                    CornerRadius="3">
+				<StackPanel Orientation="Horizontal" Spacing="5">
+					<TextBlock Text="⏹" FontSize="12" />
+					<TextBlock Text="Stop" />
+				</StackPanel>
+			</Button>
+
+			<!-- Status Display -->
+			<Border Background="#3A3A3C" CornerRadius="3" Padding="10,6" Margin="20,0,0,0">
+				<StackPanel Orientation="Horizontal" Spacing="8">
+
+					<!-- Execution Status -->
+					<!--<TextBlock Text="{Binding ExecutionStatus, StringFormat='Status: {0}'}"
+                               Foreground="#CCCCCC"
+                               FontWeight="SemiBold" />-->
+
+					<!-- Current Node (simplified) -->
+					<!--<TextBlock Text="⏸ Paused"
+                               Foreground="#61DAFB"
+                               IsVisible="{Binding IsPaused}" />-->
+
+					<!-- Execution Time -->
+					<!--<TextBlock Text="{Binding ExecutionTime, StringFormat='⏱ {0:F1}s'}"
+                               Foreground="#98FB98"
+                               IsVisible="{Binding IsDebugging}" />-->
+
+				</StackPanel>
+			</Border>
+
+			<!-- Breakpoint Info -->
+			<Border Background="#8B4513"
+                    CornerRadius="3"
+                    Padding="8,6"
+                    IsVisible="{Binding HasBreakpoints}">
+				<StackPanel Orientation="Horizontal" Spacing="5">
+					<TextBlock Text="🔴" FontSize="12" />
+					<TextBlock Text="{Binding BreakpointCount, StringFormat='{}{0} breakpoints'}"
+                               Foreground="White"
+                               FontSize="12" />
+				</StackPanel>
+			</Border>
+
+		</StackPanel>
+	</Border>
+
+</UserControl>

@@ -1,0 +1,74 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+	<Design.PreviewWith>
+		<Border Padding="20">
+			<!-- Add Controls for Previewer Here -->
+		</Border>
+	</Design.PreviewWith>
+
+
+	<!-- Normal State -->
+	<Style Selector="Border.node-container">
+		<Setter Property="Background" Value="#2D2D30" />
+		<Setter Property="BorderBrush" Value="#3F3F46" />
+		<Setter Property="BorderThickness" Value="2" />
+		<Setter Property="CornerRadius" Value="8" />
+		<Setter Property="MinWidth" Value="120" />
+		<Setter Property="MinHeight" Value="80" />
+	</Style>
+
+	<!-- Executing State - Glowing Blue -->
+	<Style Selector="Border.node-container.executing">
+		<Setter Property="BorderBrush" Value="#0078D4" />
+		<!--<Setter Property="BoxShadow" Value="0 0 20px #0078D4" />-->
+		<Style.Animations>
+			<Animation Duration="0:0:1" IterationCount="Infinite" PlaybackDirection="Alternate">
+				<KeyFrame Cue="0%">
+					<Setter Property="BorderBrush" Value="#0078D4" />
+				</KeyFrame>
+				<KeyFrame Cue="100%">
+					<Setter Property="BorderBrush" Value="#1E90FF" />
+				</KeyFrame>
+			</Animation>
+		</Style.Animations>
+	</Style>
+
+	<!-- Completed State - Green Glow -->
+	<Style Selector="Border.node-container.completed">
+		<Setter Property="BorderBrush" Value="#16A085" />
+		<Setter Property="BoxShadow" Value="0 0 15px #16A085" />
+	</Style>
+
+	<!-- Failed State - Red Glow -->
+	<Style Selector="Border.node-container.failed">
+		<Setter Property="BorderBrush" Value="#E74C3C" />
+		<Setter Property="BoxShadow" Value="0 0 15px #E74C3C" />
+	</Style>
+
+	<!-- Paused at Breakpoint - Pulsing Red -->
+	<Style Selector="Border.node-container.paused">
+		<Setter Property="BorderBrush" Value="#FF6B6B" />
+		<Setter Property="BoxShadow" Value="0 0 25px #FF6B6B" />
+		<Style.Animations>
+			<Animation Duration="0:0:0.8" IterationCount="Infinite" PlaybackDirection="Alternate">
+				<KeyFrame Cue="0%">
+					<Setter Property="BoxShadow" Value="0 0 25px #FF6B6B" />
+				</KeyFrame>
+				<KeyFrame Cue="100%">
+					<Setter Property="BoxShadow" Value="0 0 5px #FF6B6B" />
+				</KeyFrame>
+			</Animation>
+		</Style.Animations>
+	</Style>
+
+	<!-- Breakpoint Indicator -->
+	<Style Selector="Ellipse.breakpoint">
+		<Setter Property="Fill" Value="#E74C3C" />
+		<Setter Property="Width" Value="12" />
+		<Setter Property="Height" Value="12" />
+		<Setter Property="HorizontalAlignment" Value="Right" />
+		<Setter Property="VerticalAlignment" Value="Top" />
+		<Setter Property="Margin" Value="0,-6,-6,0" />
+	</Style>
+
+</Styles>
