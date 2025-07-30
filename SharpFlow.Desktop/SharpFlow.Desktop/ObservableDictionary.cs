@@ -3,7 +3,11 @@ using System.ComponentModel;
 
 namespace SharpFlow.Desktop
 {
-	// Create a simple ObservableDictionary class
+	/// <summary>
+	/// Create a simple ObservableDictionary class
+	/// </summary>
+	/// <typeparam name="TKey"></typeparam>
+	/// <typeparam name="TValue"></typeparam>
 	public class ObservableDictionary<TKey, TValue> : Dictionary<TKey, TValue>, INotifyPropertyChanged
 	{
 		public event PropertyChangedEventHandler? PropertyChanged;

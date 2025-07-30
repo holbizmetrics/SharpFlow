@@ -12,12 +12,21 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Remove="WorkflowEngine.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Include="WorkflowEngine.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="Avalonia" Version="11.2.0" />
 		<PackageReference Include="Avalonia.Desktop" Version="11.2.0" />
 		<PackageReference Include="Avalonia.Themes.Fluent" Version="11.2.0" />
 		<PackageReference Include="Avalonia.Fonts.Inter" Version="11.2.0" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
-		<PackageReference Include="System.Text.Json" Version="8.0.0" />
+		<PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.14.0" />
+		<PackageReference Include="System.Text.Json" Version="10.0.0-preview.6.25358.103" />
 		<PackageReference Include="Avalonia.Diagnostics" Version="11.2.0">
 			<IncludeAssets Condition="'$(Configuration)' != 'Debug'">None</IncludeAssets>
 			<PrivateAssets Condition="'$(Configuration)' != 'Debug'">All</PrivateAssets>
