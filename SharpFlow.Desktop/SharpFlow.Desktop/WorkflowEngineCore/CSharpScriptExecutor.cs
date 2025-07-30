@@ -18,11 +18,19 @@ namespace SharpFlow.Desktop.WorkflowEngineCore
 			// Setup base compilation with common references
 			var references = new[]
 			{
-			MetadataReference.CreateFromFile(typeof(object).Assembly.Location),
-			MetadataReference.CreateFromFile(typeof(System.Collections.Generic.Dictionary<,>).Assembly.Location),
-			MetadataReference.CreateFromFile(typeof(System.Threading.Tasks.Task).Assembly.Location),
-            // Add more as needed
-        };
+			// Core runtime assemblies
+            MetadataReference.CreateFromFile(typeof(object).Assembly.Location),
+			MetadataReference.CreateFromFile(typeof(Dictionary<,>).Assembly.Location),
+			MetadataReference.CreateFromFile(typeof(Task).Assembly.Location),
+			MetadataReference.CreateFromFile(typeof(Newtonsoft.Json.JsonConvert).Assembly.Location),
+            
+            // Add System.Runtime explicitly
+            MetadataReference.CreateFromFile(Assembly.Load("System.Runtime").Location),
+			MetadataReference.CreateFromFile(Assembly.Load("System.Collections").Location),
+			MetadataReference.CreateFromFile(Assembly.Load("System.Linq").Location),
+			MetadataReference.CreateFromFile(Assembly.Load("netstandard").Location),
+
+			};
 
 			_baseCompilation = CSharpCompilation.Create("ScriptAssembly")
 				.WithOptions(new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary))
@@ -43,6 +51,9 @@ namespace SharpFlow.Desktop.WorkflowEngineCore
                 using System.Collections.Generic;
                 using System.Threading.Tasks;
                 
+			    using Newtonsoft.Json;
+				using Newtonsoft.Json.Linq;
+
                 public class UserScript
                 {{
                     public static object Execute(Dictionary<string, object> input)

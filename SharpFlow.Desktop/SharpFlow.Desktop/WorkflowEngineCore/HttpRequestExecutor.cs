@@ -31,6 +31,12 @@ namespace SharpFlow.Desktop.WorkflowEngineCore
 				// Build HTTP request
 				var request = new HttpRequestMessage(new HttpMethod(method), url);
 
+				// Add default User-Agent if not provided
+				if (!headers.ContainsKey("User-Agent"))
+				{
+					headers["User-Agent"] = "SharpFlow/1.0 (Automation Platform)";
+				}
+
 				// Add headers
 				foreach (var header in headers)
 				{
@@ -49,14 +55,16 @@ namespace SharpFlow.Desktop.WorkflowEngineCore
 
 				return new ExecutionResult
 				{
-					Success = true,
+					Success = response.IsSuccessStatusCode, // Only success if HTTP 2xx
 					OutputData = new Dictionary<string, object>
 					{
 						["StatusCode"] = (int)response.StatusCode,
 						["Body"] = responseBody,
-						["Headers"] = response.Headers.ToDictionary(h => h.Key, h => string.Join(", ", h.Value))
+						["Headers"] = response.Headers.ToDictionary(h => h.Key, h => string.Join(", ", h.Value)),
+						["IsSuccess"] = response.IsSuccessStatusCode
 					},
-					ExecutionTime = DateTime.UtcNow - startTime
+					ExecutionTime = DateTime.UtcNow - startTime,
+					ErrorMessage = response.IsSuccessStatusCode ? null : $"HTTP {response.StatusCode}: {response.ReasonPhrase}"
 				};
 			}
 			catch (Exception ex)
