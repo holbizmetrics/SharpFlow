@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharpFlow.Desktop.iOS", "Sh
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharpFlow.Desktop.Android", "SharpFlow.Desktop.Android\SharpFlow.Desktop.Android.csproj", "{7AD1DAC8-7FBE-49D5-8614-7321233DB82E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpflowTests", "SharpflowTests\SharpflowTests.csproj", "{93224CBC-10CC-4DDB-8D45-3ACBC8579818}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,12 +41,13 @@ Global
 		{7AD1DAC8-7FBE-49D5-8614-7321233DB82E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7AD1DAC8-7FBE-49D5-8614-7321233DB82E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7AD1DAC8-7FBE-49D5-8614-7321233DB82E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{93224CBC-10CC-4DDB-8D45-3ACBC8579818}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93224CBC-10CC-4DDB-8D45-3ACBC8579818}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93224CBC-10CC-4DDB-8D45-3ACBC8579818}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93224CBC-10CC-4DDB-8D45-3ACBC8579818}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {19F6020E-83A0-4A47-BD9C-EF9EA668E9DB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {83CB65B8-011F-4ED7-BCD3-A6CFA935EF7E}

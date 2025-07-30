@@ -26,7 +26,7 @@ public partial class MainWindowViewModel : ObservableObject
             Name = "HTTP Request",
             X = 50 + Nodes.Count * 30,
             Y = 50 + Nodes.Count * 30,
-            Properties = new Dictionary<string, object>
+            Properties = new ObservableDictionary<string, object>
             {
                 ["url"] = "https://api.example.com",
                 ["method"] = "GET"
@@ -35,11 +35,7 @@ public partial class MainWindowViewModel : ObservableObject
 
         Nodes.Add(node);
         Debug.WriteLine($"Added node! Total count: {Nodes.Count}");
-
-
-        // FORCE UI UPDATE
-        OnPropertyChanged(nameof(Nodes));
-    }
+	}
 
     [RelayCommand]
     private void AddTimerNode()
@@ -50,7 +46,7 @@ public partial class MainWindowViewModel : ObservableObject
             Name = "Timer",
             X = 50 + Nodes.Count * 30,
             Y = 50 + Nodes.Count * 30,
-            Properties = new Dictionary<string, object>
+            Properties = new ObservableDictionary<string, object>
             {
                 ["interval"] = 5
             }

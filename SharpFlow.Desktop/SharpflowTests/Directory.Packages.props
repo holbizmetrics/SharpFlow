@@ -1,0 +1,28 @@
+<Project>
+  <PropertyGroup>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <!-- Existing packages from your other projects -->
+    <PackageVersion Include="Avalonia" Version="11.3.0" />
+    <PackageVersion Include="Avalonia.Desktop" Version="11.3.0" />
+    <PackageVersion Include="Avalonia.Diagnostics" Version="11.3.0" />
+    <PackageVersion Include="Avalonia.Fonts.Inter" Version="11.3.0" />
+    <PackageVersion Include="Avalonia.Themes.Fluent" Version="11.3.0" />
+    <PackageVersion Include="Avalonia.Browser" Version="11.3.0" />
+    <PackageVersion Include="Avalonia.iOS" Version="11.3.0" />
+    <PackageVersion Include="Avalonia.Android" Version="11.3.0" />
+    <PackageVersion Include="CommunityToolkit.Mvvm" Version="8.4.0" />
+    <PackageVersion Include="System.Text.Json" Version="8.0.0" />
+    <PackageVersion Include="Xamarin.AndroidX.Core.SplashScreen" Version="1.0.1.15" />
+    
+    <!-- Test packages -->
+    <PackageVersion Include="NUnit" Version="4.3.2" />
+    <PackageVersion Include="NUnit.Analyzers" Version="4.9.2" />
+    <PackageVersion Include="Microsoft.Testing.Extensions.TrxReport" Version="1.8.0" />
+    <PackageVersion Include="Microsoft.Testing.Extensions.CrashDump" Version="1.8.0" />
+    <PackageVersion Include="Microsoft.Testing.Extensions.HangDump" Version="1.8.0" />
+    <PackageVersion Include="Microsoft.Testing.Extensions.CodeCoverage" Version="17.10.1" />
+  </ItemGroup>
+</Project>
